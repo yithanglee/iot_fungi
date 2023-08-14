@@ -251,7 +251,7 @@ let PhxApp = {
 
     $.ajax({
         url: "/api/webhook",
-        dataType: "json",
+        dataType: "/json",
         headers: {
           "Authorization": "Basic " + window.userToken
         },
@@ -2127,7 +2127,7 @@ function deleteData(params) {
   confirm_button.onclick = function() {
     $.ajax({
       url: "/api/" + dataSource.link + "/" + dtdata.id,
-      dataType: "json",
+      dataType: "/json",
       headers: {
         "Authorization": "Basic " + window.userToken
       },
@@ -2740,7 +2740,7 @@ function appendInputs(xv, cols, j, object) {
           var customCols = qv.sub.customCols;
           $.ajax({
             url: "/api/webhook?scope=gen_inputs",
-            dataType: "json",
+            dataType: "/json",
             async: false,
             data: {
               module: subModule
@@ -2831,7 +2831,7 @@ function createForm(dtdata, table, customCols, postFn, onDrawFn) {
     $.ajax({
       async: false,
       url: "/api/webhook?scope=gen_inputs",
-      dataType: "json",
+      dataType: "/json",
       data: {
         module: mod
       }
@@ -2971,7 +2971,7 @@ function createForm(dtdata, table, customCols, postFn, onDrawFn) {
 
           $.ajax({
               url: "/api/" + object,
-              dataType: "json",
+              dataType: "/json",
               headers: {
                 "Authorization": "Basic " + window.userToken
               },
@@ -3127,7 +3127,7 @@ function submitFormData(selector, url, postFn, xparams) {
   console.log(formData);
   $.ajax({
       url: "/api/" + object,
-      dataType: "json",
+      dataType: "/json",
       method: "POST",
       headers: {
         "Authorization": "Basic " + window.userToken
@@ -4222,7 +4222,7 @@ background-repeat: no-repeat;
           return x.data == v.data;
         })
       try {
-        $("td:eq(" + index + ")", row).html(`<div aria-data='` + `` + `' class="jsv` + dataSource.makeid.id + `" id="` + v.data + `` + dtdata.id + `"></div>`);
+        $("td:eq(" + index + ")", row).html(`<div aria-data='` + `` + `' class="/jsv` + dataSource.makeid.id + `" id="` + v.data + `` + dtdata.id + `"></div>`);
       } catch (e) {
 
       }

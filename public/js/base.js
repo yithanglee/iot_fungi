@@ -17,9 +17,9 @@ function evalTitle(label) {
 
 var route_names = [
 
-  { html: "landing.html", title: "Home", route: "/home", skipNav: true },
-  { html: "profile.html", title: "Profile", route: "/profile", skipNav: true },
-  { html: "not_found.html", title: "Not Found", route: "/not-found", skipNav: true },
+  { html: "landing.html", title: "Home", route: "/home", },
+  { html: "profile.html", title: "Profile", route: "/profile", },
+  { html: "not_found.html", title: "Not Found", route: "/not-found" },
 
 ]
 
@@ -112,13 +112,11 @@ function navigateTo(route, additionalParamString) {
     var footer_modals = PhxApp.html("footer_modals.html")
     var html = PhxApp.html(match_2[0].html)
     var initPage = `
-      <div class="page-content pb-0">
-        ` + html + `
-    
-      </div>
+        ` + html + `     
         ` + footer_modals + `
           `
     var keys = Object.keys(match_2[0])
+
     if (keys.includes("skipNav")) {
 
       $("#page").html(initPage)
@@ -138,12 +136,13 @@ function navigateTo(route, additionalParamString) {
     }
     return match_2[0]
   } else {
+    var nav = PhxApp.html("blog_nav.html")
     var footer_modals = PhxApp.html("footer_modals.html")
     var html = PhxApp.html("landing.html")
     var initPage = `
-      <div class="page-content pb-0">
+    `+ nav + `
         ` + html + `
-      </div>        ` + footer_modals + ``
+            ` + footer_modals + ``
     $("#page").html(initPage)
     navigateCallback()
 
@@ -157,7 +156,27 @@ async function navigateCallback() {
     evaluateLang()
   }
 
-  toTop();
+
+  setTimeout(() => {
+    /* Text Animation on Hero Area */
+    $('#tech-tools').textition({
+      animation: 'ease-out',
+      map: { x: 200, y: 100, z: 0 },
+      autoplay: true,
+      interval: 3,
+      speed: 1
+    });
+
+
+    $('[data-tilt]').each((i, v) => {
+      VanillaTilt.init($(v)[0])
+
+    })
+    initMap()
+
+  }, 1000)
+
+  // toTop();
 }
 
 function toTop() {
@@ -204,20 +223,200 @@ function evaluateLang() {
   }
 }
 
-$(document).on("click", "a.navi", function(event) {
+$(document).on("click", "a.navi", function (event) {
   event.preventDefault();
   loadingPage()
   $("a.ms-link").removeClass("active")
   $(this)[0].classList.contains("ms-link") ? $(this)[0].classList.add("active") : null;
   setTimeout(() => {
-    if ($(this).attr("href").includes("#")) {} else {
+    if ($(this).attr("href").includes("#")) { } else {
       navigateTo($(this).attr("href"))
     }
   }, 200)
 
 });
 
+function initMap() {
+  var map = L.map('mapwrapper').setView([3.03917, 101.7058389], 15.87);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+}
+
 
 $(document).ready(() => {
   navigateTo();
+
+
+  /*================================================================= 
+  Isotope initialization 
+  ==================================================================*/
+  var $grid = $('.grid').isotope({
+    // options
+  });
+  // layout Isotope after each image loads
+  $grid.imagesLoaded().progress(function () {
+    $grid.isotope('layout');
+  });
+
+  // filter items on button click
+  $('.filter-button-group').on('click', 'button', function () {
+    var filterValue = $(this).attr('data-filter');
+    $grid.isotope({ filter: filterValue });
+  });
+
+  /* checking active filter */
+  // change is-checked class on buttons
+  var buttonGroups = document.querySelectorAll('.button-group');
+  for (var i = 0, len = buttonGroups.length; i < len; i++) {
+    var buttonGroup = buttonGroups[i];
+    radioButtonGroup(buttonGroup);
+  }
+
+  function radioButtonGroup(buttonGroup) {
+    buttonGroup.addEventListener('click', function (event) {
+      // only work with buttons
+      if (!matchesSelector(event.target, 'button')) {
+        return;
+      }
+      buttonGroup.querySelector('.active').classList.remove('active');
+      event.target.classList.add('active');
+    });
+  }
+
+
+  /*================================================================= 
+  Testimonial carousel
+  ==================================================================*/
+  const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    breakpoints: {
+      1200: {
+        slidesPerView: 3,
+      },
+      992: {
+        slidesPerView: 2,
+      },
+      576: {
+        slidesPerView: 1
+      },
+    },
+    //slidesPerView: 3,
+    spaceBetween: 24,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+    },
+
+
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    },
+
+  });
+
+
+  /*================================================================= 
+  Partner carousel
+  ==================================================================*/
+  const swiper2 = new Swiper('.partnerCarousel', {
+    // Optional parameters
+    breakpoints: {
+      1200: {
+        slidesPerView: 6,
+      },
+      992: {
+        slidesPerView: 4,
+      },
+      576: {
+        slidesPerView: 3
+      },
+      320: {
+        slidesPerView: 2
+      },
+    },
+    //slidesPerView: 6,
+    spaceBetween: 24,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+    },
+
+  });
+
+
+
+
+
+  // var greenIcon = L.icon({
+  //   iconUrl: "image/location.png",
+
+  //   iconSize: [48, 48], // size of the icon
+  // });
+
+  // L.marker([-37.817160, 144.955937], { icon: greenIcon }).addTo(map);
+
+
+
+  /*================================================================= 
+  Navbar fixed top
+  ==================================================================*/
+  $(document).ready(function () {
+
+    var menu = $('.site-header nav');
+    var origOffsetY = $('.hero-area').height();
+
+    function scroll() {
+      if ($(window).scrollTop() >= origOffsetY) {
+        $('.site-header nav').addClass('fixed-top');
+
+      } else {
+        $('.site-header nav').removeClass('fixed-top');
+
+      }
+    }
+
+    document.onscroll = scroll;
+
+  });
+
+
+
+  /*================================================================= 
+  Animating numbers
+  ==================================================================*/
+  $('.counter').counterUp({
+    delay: 10,
+    time: 3000
+  });
+
+
+  /*================================================================= 
+  Progress bar animation
+  ==================================================================*/
+  var waypoint = new Waypoint({
+    element: document.getElementById('skill-section'),
+    handler: function () {
+      $('.progress .progress-bar').css("width", function () {
+        return $(this).attr("aria-valuenow") + "%";
+      })
+    },
+    //offset: 'bottom-in-view',
+    offset: 700,
+  })
+
+
+  /*================================================================= 
+  Animate on scroll initialization
+  ==================================================================*/
+  AOS.init({
+    once: true,
+  });
+
+
+
+
 })
