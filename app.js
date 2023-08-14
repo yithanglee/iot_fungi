@@ -19,12 +19,12 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
 
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", 'openstreetmap.org'],
-      styleSrc: ["'self'", 'openstreetmap.org'],
+      // defaultSrc: ["'self'"],
+      // scriptSrc: ["'self'", 'openstreetmap.org'],
+      // styleSrc: ["'self'", 'openstreetmap.org'],
       imgSrc: ["'self'", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
-      connectSrc: ["'self'", 'openstreetmap.org'],
-      fontSrc: ["'self'", 'openstreetmap.org'],
+      // connectSrc: ["'self'", 'openstreetmap.org'],
+      // fontSrc: ["'self'", 'openstreetmap.org'],
     },
   }),
 );
@@ -33,7 +33,7 @@ app.use(
 const RateLimit = require("express-rate-limit");
 const limiter = RateLimit({
   windowMs: 5 * 60 * 1000, // 1 minute
-  max: 100,
+  max: 200,
 });
 // Apply rate limiter to all requests
 app.use(limiter);
