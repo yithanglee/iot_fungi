@@ -148,6 +148,86 @@ function navigateTo(route, additionalParamString) {
 
   }
 }
+let blog_url;
+$.ajax({
+
+  method: "get",
+  url: "/api/webhook/blog_url"
+}).done((j) => {
+  blog_url = j
+})
+const blogs = PhxApp.api('blogs', {});
+window.curSwiper
+function readBlog(id) {
+
+  var blog = PhxApp.api('get_blog', { id: id })
+  console.log(blog)
+
+  if (window.curSwiper != null) {
+    curSwiper.destroy()
+  }
+  $(".sw").html(`
+  
+  <div class="swiper" style="height:100%;" >
+  <div class="swiper-wrapper" id="covers">
+      </div>
+
+  <div class="swiper-pagination"></div>
+</div>
+  `)
+  for (let index = 0; index < blog.stored_medias.length; index++) {
+
+    // var url = 'image/portfolio/portfolio_large_' + (index + 1) + '.jpg'
+    var url = blog_url + "/" + blog.stored_medias[index].s3_url
+
+    var cover = `
+   
+      <div class="swiper-slide">
+        <a class="glightbox" href="`+ url + `">
+        <img id="cover " src="`+ url + `" alt="portfolio image">
+      
+        </a>
+      </div>
+   
+                           
+    `
+
+    $("#covers").append(cover)
+
+    // $(".portfolio-section .modal #cover").attr("src", )
+
+  }
+
+  $(".portfolio-section .modal").modal('show')
+
+  $(".portfolio-section .modal .content-wrapper").html(blog.content)
+  activateSwiper("#covers")
+  var options = {}
+  const lightbox = GLightbox({ ...options });
+}
+
+function activateSwiper(dom) {
+
+
+  curSwiper = new Swiper(".swiper", {
+    // Optional parameters
+    breakpoints: {
+      576: {
+        slidesPerView: 1
+      },
+    },
+    slidesPerView: 'auto',
+    spaceBetween: 24,
+    loop: true,
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    },
+
+  });
+
+}
 
 async function navigateCallback() {
 
@@ -155,6 +235,8 @@ async function navigateCallback() {
 
     evaluateLang()
   }
+
+
 
 
   setTimeout(() => {

@@ -251,70 +251,9 @@
             <button class="" data-filter=".design">Express</button>
             <button class="" data-filter=".application">Svelte</button>
         </div>
-        <div class="row grid" data-aos="fade-up" data-aos-duration="2000">
-            <div class="col-lg-4 col-md-6 grid-item programming">
-                <div class="box">
-                    <img src="image/portfolio/portfolio-item-01.jpg" alt="portfolio image">
-                    <div class="box-content">
-                        <span class="category">Programming</span>
-                        <h3 class="title">Website design for Rainy Design</h3>
-                    </div>
-                    <div class="icon-box"><a href="#" data-bs-toggle="modal" data-bs-target="#portfolioModal6"><i
-                                class="bi bi-plus-lg"></i></a></div>
+        <div class="row grid" data-aos="fade-up" data-aos-duration="2000" id="portfolios">
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="portfolioModal6" tabindex="-1" aria-labelledby="portfolioModal6"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
-                            <div class="modal-content">
 
-                                <div class="modal-body">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"><i class="bi bi-x"></i></button>
-                                    <div class="row item-content">
-                                        <div class="col-xl-12">
-                                            <img src="image/portfolio/portfolio_large_1.jpg" alt="portfolio image">
-                                        </div>
-                                        <div class="col-xl-8">
-                                            <div class="content-wrapper">
-                                                <h2 class="item-title">Branding for ABC Corporation</h2>
-                                                <p>
-                                                    Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                                    cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet,
-                                                    consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                                    consequat. Excepteur sint occaecat cupidatat non proident, sunt in
-                                                    culpa qui officia deserunt mollit anim id est laborum.
-                                                </p>
-                                                <p>
-                                                    Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                                                    cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                                                    anim id est laborum.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4">
-                                            <div class="meta-wrapper">
-                                                <ul class="item-meta">
-                                                    <li>Project Type: <span class="meta-value">Graphic Design</span>
-                                                    </li>
-                                                    <li>Client: <span class="meta-value">Juwel Khan</span></li>
-                                                    <li>Duration: <span class="meta-value">2 Weeks</span></li>
-                                                    <li>Task: <span class="meta-value">UI/UX, Frontend</span></li>
-                                                    <li>Budget: <span class="meta-value">$2000</span></li>
-                                                </ul>
-                                            </div> <!-- .meta-wrapper -->
-                                        </div>
-                                    </div> <!-- .row -->
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div> <!-- .row -->
     </div> <!-- .container -->
@@ -911,9 +850,96 @@
     </div> <!-- .design-elements -->
 </section> <!-- .contact-section -->
 
+<!-- .blog-modal  -->
+<!-- Modal -->
+<div class="portfolio-section">
+    <div class="box ">
+        <div class=" modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <button style="z-index: 2;" type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"><i class="bi bi-x"></i></button>
+                        <div class="row item-content">
+                            <div class="col-xl-12 sw">
+
+                            </div>
+                            <div class="col-xl-8">
+                                <div class="content-wrapper">
+                                    <h2 class="item-title">Branding for ABC Corporation</h2>
+                                    <p>
+                                        Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                        cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet,
+                                        consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                        consequat. Excepteur sint occaecat cupidatat non proident, sunt in
+                                        culpa qui officia deserunt mollit anim id est laborum.
+                                    </p>
+                                    <p>
+                                        Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                                        cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                                        anim id est laborum.
+                                    </p>
+                                </div>
+                            </div>
+               
+
+                            <div class="col-xl-4">
+                                <div class="meta-wrapper">
+                                    <ul class="item-meta">
+                                        <li>Project Type: <span class="meta-value">Graphic Design</span>
+                                        </li>
+                                        <li>Client: <span class="meta-value">Juwel Khan</span></li>
+                                        <li>Duration: <span class="meta-value">2 Weeks</span></li>
+                                        <li>Task: <span class="meta-value">UI/UX, Frontend</span></li>
+                                        <li>Budget: <span class="meta-value">$2000</span></li>
+                                    </ul>
+                                </div> <!-- .meta-wrapper -->
+                            </div>
+                        </div> <!-- .row -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <script>
+    if (blogs) {
+        blogs.forEach((blog, i) => {
 
 
-    
+            var url = 'image/portfolio/portfolio-item-01.jpg'
+            if (!!blog.thumbnail_img) {
+                url = blog_url + blog.thumbnail_img
+            }
+
+
+            var html = `
+    <div class="col-lg-4 col-md-6 grid-item programming">
+        <div class="box" style="cursor:pointer;" onclick="readBlog('`+ blog.id + `')">
+            <img src="`+ url + `" alt="portfolio image">
+            <div class="box-content">
+                <span class="category">Programming</span>
+                <h3 class="title">`+ blog.title + `</h3>
+            </div>
+            <div class="icon-box">
+                <a href="javascript:void(0);"  >
+                    <i class="bi bi-plus-lg">
+                    </i>
+                </a>
+            </div>
+        </div>
+    </div>
+  `
+            $("#portfolios").append(html)
+        })
+    }
+
+
 </script>

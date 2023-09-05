@@ -13,16 +13,18 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+
 // Add helmet to the middleware chain.
 // Set CSP headers to allow our Bootstrap and Jquery to be served
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
 
-      // defaultSrc: ["'self'"],
-      // scriptSrc: ["'self'", 'openstreetmap.org'],
+      defaultSrc: ["'self'"],
+      "script-src-attr": ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'openstreetmap.org'],
       // styleSrc: ["'self'", 'openstreetmap.org'],
-      imgSrc: ["'self'", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
+      imgSrc: ["'self'", "localhost:5173", "localhost:8512", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
       // connectSrc: ["'self'", 'openstreetmap.org'],
       // fontSrc: ["'self'", 'openstreetmap.org'],
     },

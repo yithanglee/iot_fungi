@@ -22,5 +22,10 @@ router.get('/', async function (req, res, next) {
 
     // res.send('respond with a resource');
 });
+router.get('/blog_url', async function (req, res, next) {
+    
+    res.json(blogUrl);
 
+    // res.send('respond with a resource');
+});
 module.exports = router;
