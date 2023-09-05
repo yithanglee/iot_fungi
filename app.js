@@ -24,7 +24,7 @@ app.use(
       "script-src-attr": ["'self'", "'unsafe-inline'"],
       scriptSrc: ["'self'", "'unsafe-inline'", 'openstreetmap.org'],
       // styleSrc: ["'self'", 'openstreetmap.org'],
-      imgSrc: ["'self'", "localhost:5173", "localhost:8512", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
+      imgSrc: ["'self'", "localhost:5173", "localhost:8512", "blog.damienslab.com", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
       // connectSrc: ["'self'", 'openstreetmap.org'],
       // fontSrc: ["'self'", 'openstreetmap.org'],
     },
