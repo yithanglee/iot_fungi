@@ -160,7 +160,7 @@ const blogs = PhxApp.api('blogs', {});
 window.curSwiper
 function readBlog(id) {
 
-  var blog = PhxApp.api('get_blog', { id: id })
+  var blog = PhxApp.api('blog', { id: id })
   console.log(blog)
 
   if (window.curSwiper != null) {
