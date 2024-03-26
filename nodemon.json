@@ -1,0 +1,6 @@
+{
+    "watch": "./public/js",
+    "ext": "js",
+    "exec": " npm start",
+    "recursive": true, "delay": "2"
+  }

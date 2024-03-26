@@ -22,9 +22,9 @@ app.use(
 
       defaultSrc: ["'self'"],
       "script-src-attr": ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", 'openstreetmap.org'],
+      scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'", 'openstreetmap.org'],
       // styleSrc: ["'self'", 'openstreetmap.org'],
-      imgSrc: ["'self'", "localhost:5173", "localhost:8512", "blog.damienslab.com", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
+      imgSrc: ["'self'", "localhost:4000", "localhost:8512", "blog.damienslab.com", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
       // connectSrc: ["'self'", 'openstreetmap.org'],
       // fontSrc: ["'self'", 'openstreetmap.org'],
     },
@@ -52,8 +52,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/webhook', apiRouter);
 app.use('/', indexRouter);
-
-// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

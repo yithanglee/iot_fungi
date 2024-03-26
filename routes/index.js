@@ -5,7 +5,7 @@ const fs = require('fs/promises');
 const he = require('he');
 /* GET home page. */
 router.get('/*', async function (req, res, next) {
-  var content = '', filename = ''
+  var contentNav = '', content = '', filename = ''
   console.log(req.params)
   key = req.params[0]
 
@@ -15,20 +15,33 @@ router.get('/*', async function (req, res, next) {
       break;
 
     default:
-      filename = ''
+      filename = "landing.html"
 
   }
-  const filePath = path.join(__dirname, '../public/html/v2', filename);
-  console.log(filePath)
+
+  const filePathNav = path.join(__dirname, '../internal/html/', 'blog_nav.html');
+
+  try {
+    contentNav = await fs.readFile(filePathNav);
+  
+  } catch (e) {
+
+  }
+  const decodedHtmlNav = he.decode(Buffer.from(contentNav).toString());
+
+
+  const filePath = path.join(__dirname, '../internal/html/', filename);
+
   try {
     content = await fs.readFile(filePath);
   
   } catch (e) {
 
   }
-  console.log(Buffer.from(content).toString())
   const decodedHtml = he.decode(Buffer.from(content).toString());
-  res.render('index', { title: 'Express', content: decodedHtml  });
+
+
+  res.render('index', { title: 'Express', content: decodedHtmlNav + decodedHtml  });
 });
 
 module.exports = router;

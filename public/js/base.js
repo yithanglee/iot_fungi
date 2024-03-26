@@ -1,19 +1,3 @@
-function evalTitle(label) {
-
-  if (localStorage.getItem("default-lang") == "cn") {
-    switch (label.replace(" ", "")) {
-      case "Home":
-        label = "首页"
-        break;
-
-      default:
-        label = label
-
-    }
-  }
-  return label
-}
-
 
 var route_names = [
 
@@ -23,16 +7,14 @@ var route_names = [
 
 ]
 
-async function loadingPage() {
-  $("#preloader").removeClass("preloader-hide")
+loadingPage = async () => {
+  $(".preloader").removeClass("d-none")
 
   setTimeout(() => {
 
-    $("#preloader").addClass("preloader-hide")
-  }, 5000)
-}
-
-function navigateTo(route, additionalParamString) {
+    $(".preloader").addClass("d-none")
+  }, 1000)
+}, navigateTo = (route, additionalParamString) => {
 
   PhxApp.show()
   if (route == null) {
@@ -168,34 +150,26 @@ function readBlog(id) {
   }
   $(".sw").html(`
   
-  <div class="swiper" style="height:100%;" >
-  <div class="swiper-wrapper" id="covers">
+      <div class="swiper" style="height:100%;" >
+        <div class="swiper-wrapper" id="covers">
+        </div>
+        <div class="swiper-pagination">
+        </div>
       </div>
-
-  <div class="swiper-pagination"></div>
-</div>
-  `)
+        `)
   for (let index = 0; index < blog.stored_medias.length; index++) {
 
     // var url = 'image/portfolio/portfolio_large_' + (index + 1) + '.jpg'
-    var url = blog_url + "/" + blog.stored_medias[index].s3_url
+    var url = blog_url + "/" + blog.stored_medias[index].url
 
     var cover = `
-   
-      <div class="swiper-slide">
+      <div class="swiper-slide d-flex justify-content-center" >
         <a class="glightbox" href="`+ url + `">
-        <img id="cover " src="`+ url + `" alt="portfolio image">
-      
+        <img id="cover " style="max-height: 800px; width: auto;" src="`+ url + `" alt="portfolio image">
         </a>
       </div>
-   
-                           
     `
-
     $("#covers").append(cover)
-
-    // $(".portfolio-section .modal #cover").attr("src", )
-
   }
 
   $(".portfolio-section .modal").modal('show')
@@ -231,14 +205,6 @@ function activateSwiper(dom) {
 
 async function navigateCallback() {
 
-  if (window.pdata != null) {
-
-    evaluateLang()
-  }
-
-
-
-
   setTimeout(() => {
     /* Text Animation on Hero Area */
     $('#tech-tools').textition({
@@ -260,49 +226,17 @@ async function navigateCallback() {
 
   // toTop();
 }
-
-function toTop() {
+const initMap = () => {
+  var map = L.map('mapwrapper').setView([3.03917, 101.7058389], 15.87);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+}, toTop = () => {
   $("body")[0].scrollIntoView();
   $("#preloader").addClass("preloader-hide")
-}
-
-function updatePageParams(obj) {
+}, updatePageParams = (obj) => {
   window.stateObj = obj
   history.pushState(obj, obj.title, obj.route);
-}
-
-function toggleLabel() {
-
-
-  if (localStorage.getItem("default-lang") == "en") {
-    localStorage.setItem("default-lang", "cn")
-  } else if (localStorage.getItem("default-lang") == "cn") {
-    localStorage.setItem("default-lang", "en")
-  }
-
-  $("[aria-data-cn]").each((i, v) => {
-    var en = $(v).html()
-    var cn = $(v).attr("aria-data-cn")
-    $(v).html(cn)
-    $(v).attr("aria-data-cn", en)
-  })
-}
-
-function evaluateLang() {
-
-  lang = localStorage.getItem("default-lang")
-
-  if (lang == "cn") {
-    $(document).ready(() => {
-
-      $("[aria-data-cn]").each((i, v) => {
-        var en = $(v).html()
-        var cn = $(v).attr("aria-data-cn")
-        $(v).html(cn)
-        $(v).attr("aria-data-cn", en)
-      })
-    })
-  }
 }
 
 $(document).on("click", "a.navi", function (event) {
@@ -318,18 +252,12 @@ $(document).on("click", "a.navi", function (event) {
 
 });
 
-function initMap() {
-  var map = L.map('mapwrapper').setView([3.03917, 101.7058389], 15.87);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-}
 
 
 $(document).ready(() => {
-  navigateTo();
-
+  // navigateTo();
+  navigateCallback();
 
   /*================================================================= 
   Isotope initialization 
@@ -497,6 +425,8 @@ $(document).ready(() => {
   AOS.init({
     once: true,
   });
+
+  $(".preloader").addClass("d-none")
 
 
 
