@@ -163,9 +163,9 @@ function readBlog(id) {
     var url = blog_url + "/" + blog.stored_medias[index].url
 
     var cover = `
-      <div class="swiper-slide d-flex justify-content-center" >
+      <div class="swiper-slide d-flex justify-content-center align-items-center" >
         <a class="glightbox" href="`+ url + `">
-        <img id="cover " style="max-height: 800px; width: auto;" src="`+ url + `" alt="portfolio image">
+        <img id="cover " style="max-height: 800px; width: auto; max-width: 800px;" src="`+ url + `" alt="portfolio image">
         </a>
       </div>
     `
