@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node esbuild.config.js",
-    "start": "PORT=8512 node ./bin/www",
+    "start": "PORT=5123 node ./bin/www",
     "dev": "npm run build && npm start"
   },
   "dependencies": {
