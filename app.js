@@ -5,11 +5,25 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const helmet = require("helmet");
 
-
-
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 var usersRouter = require('./routes/users');
+const fs = require('fs');
+
+// Source directory; this should already exist
+const srcDir = path.join(__dirname, 'internal/html');
+console.log(srcDir)
+// Destination directory; this is where you want to create the symlink
+const destDir = path.join(__dirname, 'public/html/v2');
+
+// Create the symbolic link
+fs.symlink(srcDir, destDir, 'dir', (err) => {
+  if (err) {
+    console.error('Error creating symlink:', err);
+  } else {
+    console.log('Symlink created successfully');
+  }
+});
 
 var app = express();
 

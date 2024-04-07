@@ -1,6 +1,6 @@
 {
     "watch": "./public/js",
     "ext": "js",
-    "exec": " npm start",
+    "exec": "PORT=8512 npm start ",
     "recursive": true, "delay": "2"
   }

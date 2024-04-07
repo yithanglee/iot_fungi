@@ -132,13 +132,12 @@ loadingPage = async () => {
 }
 let blog_url;
 $.ajax({
-
   method: "get",
   url: "/api/webhook/blog_url"
 }).done((j) => {
   blog_url = j
 })
-const blogs = PhxApp.api('blogs', {});
+const blogs = PhxApp.api('blogs', {category: 'Portfolio'});
 window.curSwiper
 function readBlog(id) {
 
@@ -173,7 +172,6 @@ function readBlog(id) {
   }
 
   $(".portfolio-section .modal").modal('show')
-
   $(".portfolio-section .modal .content-wrapper").html(blog.content)
   activateSwiper("#covers")
   var options = {}
@@ -181,7 +179,6 @@ function readBlog(id) {
 }
 
 function activateSwiper(dom) {
-
 
   curSwiper = new Swiper(".swiper", {
     // Optional parameters
