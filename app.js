@@ -16,15 +16,35 @@ console.log(srcDir)
 // Destination directory; this is where you want to create the symlink
 const destDir = path.join(__dirname, 'public/html/v2');
 
-// Create the symbolic link
-fs.symlink(srcDir, destDir, 'dir', (err) => {
-  if (err) {
-    console.error('Error creating symlink:', err);
+
+// Function to create the symlink
+function createSymlink() {
+  fs.symlink(srcDir, destDir, 'dir', (err) => {
+      if (err) {
+          console.error('Error creating symlink:', err);
+      } else {
+          console.log('Symlink created successfully');
+      }
+  });
+}
+
+// Check if the symlink already exists
+fs.access(destDir, fs.constants.F_OK, (err) => {
+  if (!err) {
+      // Symlink exists, delete it first
+      fs.unlink(destDir, (unlinkErr) => {
+          if (unlinkErr) {
+              console.error('Error deleting symlink:', unlinkErr);
+          } else {
+              console.log('Symlink deleted successfully');
+              createSymlink();
+          }
+      });
   } else {
-    console.log('Symlink created successfully');
+      // Symlink does not exist, create it directly
+      createSymlink();
   }
 });
-
 var app = express();
 
 
@@ -63,9 +83,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Middleware to extract subdomain
+app.use((req, res, next) => {
+  const host = req.headers.host;
+  // Split the host by '.' and assume the first part is the subdomain
+  const subdomain = host.split('.')[0];
 
+  // Optional: Ignore 'www' as a subdomain
+  if (subdomain === 'www') {
+      req.subdomain = null;  // or you could reassign it to something else
+  } else {
+      req.subdomain = subdomain;
+  }
+  
+  next();
+});
 app.use('/api/webhook', apiRouter);
 app.use('/', indexRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

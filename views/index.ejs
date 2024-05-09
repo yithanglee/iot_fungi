@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>DamiensLab</title>
+  <title><%- title %></title>
   <!-- <script type="text/javascript" src="/js/jquery.min.js"></script> -->
 
   <!-- <link rel="stylesheet" href="/css/datatables.min.css"> -->
@@ -14,7 +14,7 @@
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
   <!-- Icons -->
   <link rel="stylesheet" type="text/css" href="/css/pe-icon-7-stroke.css">
@@ -66,6 +66,11 @@
 
 <body id="page" data-bs-spy="scroll" data-bs-target="#site-navbar" class="home-developer">
 <%- content %>
+<script>
+const subdomain = '<%= title %>'
+PhxApp.api("get_items", {code: subdomain})
+</script>
+
 </body>
 
 

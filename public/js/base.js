@@ -1,10 +1,7 @@
-
 var route_names = [
-
   { html: "landing.html", title: "Home", route: "/home", },
   { html: "profile.html", title: "Profile", route: "/profile", },
   { html: "not_found.html", title: "Not Found", route: "/not-found" },
-
 ]
 
 loadingPage = async () => {
@@ -137,46 +134,8 @@ $.ajax({
 }).done((j) => {
   blog_url = j
 })
-const blogs = PhxApp.api('blogs', {category: 'Portfolio'});
 window.curSwiper
-function readBlog(id) {
 
-  var blog = PhxApp.api('blog', { id: id })
-  console.log(blog)
-
-  if (window.curSwiper != null) {
-    curSwiper.destroy()
-  }
-  $(".sw").html(`
-  
-      <div class="swiper" style="height:100%;" >
-        <div class="swiper-wrapper" id="covers">
-        </div>
-        <div class="swiper-pagination">
-        </div>
-      </div>
-        `)
-  for (let index = 0; index < blog.stored_medias.length; index++) {
-
-    // var url = 'image/portfolio/portfolio_large_' + (index + 1) + '.jpg'
-    var url = blog_url + "/" + blog.stored_medias[index].url
-
-    var cover = `
-      <div class="swiper-slide d-flex justify-content-center align-items-center" >
-        <a class="glightbox" href="`+ url + `">
-        <img id="cover " style="max-height: 800px; width: auto; max-width: 800px;" src="`+ url + `" alt="portfolio image">
-        </a>
-      </div>
-    `
-    $("#covers").append(cover)
-  }
-
-  $(".portfolio-section .modal").modal('show')
-  $(".portfolio-section .modal .content-wrapper").html(blog.content)
-  activateSwiper("#covers")
-  var options = {}
-  const lightbox = GLightbox({ ...options });
-}
 
 function activateSwiper(dom) {
 
@@ -203,38 +162,11 @@ function activateSwiper(dom) {
 async function navigateCallback() {
 
   setTimeout(() => {
-    /* Text Animation on Hero Area */
-    $('#tech-tools').textition({
-      animation: 'ease-out',
-      map: { x: 200, y: 100, z: 0 },
-      autoplay: true,
-      interval: 3,
-      speed: 1
-    });
-
-
-    $('[data-tilt]').each((i, v) => {
-      VanillaTilt.init($(v)[0])
-
-    })
-    initMap()
-
   }, 1000)
 
-  // toTop();
+
 }
-const initMap = () => {
-  var map = L.map('mapwrapper').setView([3.03917, 101.7058389], 15.87);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-}, toTop = () => {
-  $("body")[0].scrollIntoView();
-  $("#preloader").addClass("preloader-hide")
-}, updatePageParams = (obj) => {
-  window.stateObj = obj
-  history.pushState(obj, obj.title, obj.route);
-}
+
 
 $(document).on("click", "a.navi", function (event) {
   event.preventDefault();
@@ -293,80 +225,6 @@ $(document).ready(() => {
   }
 
 
-  /*================================================================= 
-  Testimonial carousel
-  ==================================================================*/
-  const swiper = new Swiper('.swiper', {
-    // Optional parameters
-    breakpoints: {
-      1200: {
-        slidesPerView: 3,
-      },
-      992: {
-        slidesPerView: 2,
-      },
-      576: {
-        slidesPerView: 1
-      },
-    },
-    //slidesPerView: 3,
-    spaceBetween: 24,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-    },
-
-
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true
-    },
-
-  });
-
-
-  /*================================================================= 
-  Partner carousel
-  ==================================================================*/
-  const swiper2 = new Swiper('.partnerCarousel', {
-    // Optional parameters
-    breakpoints: {
-      1200: {
-        slidesPerView: 6,
-      },
-      992: {
-        slidesPerView: 4,
-      },
-      576: {
-        slidesPerView: 3
-      },
-      320: {
-        slidesPerView: 2
-      },
-    },
-    //slidesPerView: 6,
-    spaceBetween: 24,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-    },
-
-  });
-
-
-
-
-
-  // var greenIcon = L.icon({
-  //   iconUrl: "image/location.png",
-
-  //   iconSize: [48, 48], // size of the icon
-  // });
-
-  // L.marker([-37.817160, 144.955937], { icon: greenIcon }).addTo(map);
-
-
 
   /*================================================================= 
   Navbar fixed top
@@ -392,28 +250,6 @@ $(document).ready(() => {
 
 
 
-  /*================================================================= 
-  Animating numbers
-  ==================================================================*/
-  $('.counter').counterUp({
-    delay: 10,
-    time: 3000
-  });
-
-
-  /*================================================================= 
-  Progress bar animation
-  ==================================================================*/
-  var waypoint = new Waypoint({
-    element: document.getElementById('skill-section'),
-    handler: function () {
-      $('.progress .progress-bar').css("width", function () {
-        return $(this).attr("aria-valuenow") + "%";
-      })
-    },
-    //offset: 'bottom-in-view',
-    offset: 700,
-  })
 
 
   /*================================================================= 

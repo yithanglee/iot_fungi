@@ -1,6 +1,6 @@
 {
-    "watch": "./public/js",
-    "ext": "js",
-    "exec": "PORT=8512 npm start ",
+    "watch": ["./public/js", "./internal/html"],
+    "ext": "js,html",
+    "exec": "PORT=8512 npm run build && npm start ",
     "recursive": true, "delay": "2"
   }

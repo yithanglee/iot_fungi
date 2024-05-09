@@ -5,6 +5,7 @@ const fs = require('fs/promises');
 const he = require('he');
 /* GET home page. */
 router.get('/*', async function (req, res, next) {
+  console.log(`Subdomain is: ${req.subdomain}`)
   var contentNav = '', content = '', filename = ''
   console.log(req.params)
   key = req.params[0]
@@ -29,7 +30,7 @@ router.get('/*', async function (req, res, next) {
   } catch (e) {
   }
   const decodedHtml = he.decode(Buffer.from(content).toString());
-  res.render('index', { title: 'Express', content: decodedHtmlNav + decodedHtml });
+  res.render('index', { title: req.subdomain, content: decodedHtmlNav + decodedHtml });
 });
 
 module.exports = router;
