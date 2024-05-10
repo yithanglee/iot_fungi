@@ -20,7 +20,10 @@
 
 <script>
     $("#outlet").html(`<h1 class="text-white">` + outlet.name + `</h1><br><span></span>`)
+    items.sort((a, b) => {
 
+        return b.price - a.price
+    })
     items.forEach((v, i) => {
         var div = `
         <div class="card m-4 bg-dark">
