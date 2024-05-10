@@ -127,13 +127,7 @@ loadingPage = async () => {
 
   }
 }
-let blog_url;
-$.ajax({
-  method: "get",
-  url: "/api/webhook/blog_url"
-}).done((j) => {
-  blog_url = j
-})
+
 window.curSwiper
 
 

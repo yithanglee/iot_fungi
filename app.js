@@ -58,7 +58,7 @@ app.use(
       "script-src-attr": ["'self'", "'unsafe-inline'"],
       scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'", 'openstreetmap.org'],
       // styleSrc: ["'self'", 'openstreetmap.org'],
-      imgSrc: ["'self'", "localhost:4000", "localhost:8512", "blog.damienslab.com", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
+      imgSrc: ["'self'", "localhost:5126", "blog.damienslab.com", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
       // connectSrc: ["'self'", 'openstreetmap.org'],
       // fontSrc: ["'self'", 'openstreetmap.org'],
     },

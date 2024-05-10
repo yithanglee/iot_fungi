@@ -3,6 +3,25 @@ var router = express.Router();
 const path = require('path');
 const fs = require('fs/promises');
 const he = require('he');
+const axios = require('axios');
+require('dotenv').config();
+const blogUrl = process.env.BLOG_URL;
+
+
+async function api(url) {
+  try {
+    const apiUrl = url; // Replace with the actual API URL
+    const response = await axios.get(apiUrl);
+    console.log(response.data)
+    // You can handle the response data here and send it back to the client
+    return JSON.stringify(response.data)
+  } catch (error) {
+    console.error('Error calling external API:', error);
+
+  }
+
+}
+
 /* GET home page. */
 router.get('/*', async function (req, res, next) {
   console.log(`Subdomain is: ${req.subdomain}`)
@@ -30,7 +49,14 @@ router.get('/*', async function (req, res, next) {
   } catch (e) {
   }
   const decodedHtml = he.decode(Buffer.from(content).toString());
-  res.render('index', { title: req.subdomain, content: decodedHtmlNav + decodedHtml });
+
+
+
+  outlet = await api(blogUrl + "/api/webhook?scope=get_outlet&code=" + req.subdomain)
+ items = await api(blogUrl + "/api/webhook?scope=get_items&code=" + req.subdomain)
+
+
+  res.render('index', { outlet: outlet, title: req.subdomain, content: decodedHtmlNav + decodedHtml, items: items });
 });
 
 module.exports = router;

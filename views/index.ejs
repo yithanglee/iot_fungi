@@ -62,14 +62,15 @@
   <script type="text/javascript" src="/js/phx_app.js"></script>
   <script type="text/javascript" src="/js/base.js"></script>
   <script src="/js/script.js"></script>
+  <script>
+    const items = <%- items %>
+    const outlet = <%- outlet %>
+  </script>
+
 </head>
 
 <body id="page" data-bs-spy="scroll" data-bs-target="#site-navbar" class="home-developer">
-<%- content %>
-<script>
-const subdomain = '<%= title %>'
-PhxApp.api("get_items", {code: subdomain})
-</script>
+  <%- content %>
 
 </body>
 
