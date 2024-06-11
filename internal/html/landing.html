@@ -42,8 +42,13 @@
 
     function pay(id) {
         PhxApp.api("pay_service", { id: id, device: getUrlParameter("d") }, null, (x) => {
-            alert("You will be redirected to make payment.")
-            window.open(x, '_blank');
+            if (x != null) {
+                alert("You will be redirected to make payment.")
+                window.open(x, '_blank');
+            } else {
+                alert("Device not ready!")
+            }
+
         })
 
 
