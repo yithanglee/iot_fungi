@@ -3,8 +3,39 @@
     <div class="container">
         <div class="hero-content d-flex align-items-center ">
             <div class="row ">
-                <div class="col-lg-6 offset-lg-3 col-12">
+                <div class="col-lg-6  col-12">
                     <div class="d-flex flex-column" id="items"><span id="outlet"></span></div>
+                </div>
+                <div class="col-lg-6  col-12">
+                    <h2 class="text-white">Click on test to populate the signature</h2>
+                    <FORM method="post" class="form" name="ePayment"
+                        action="https://payment.ipay88.com.my/ePayment/entry.asp">
+                        <label>Merchant Code</label>
+                        <INPUT type="text" class="form-control my-2" name="MerchantCode" value="M27483">
+                        <label>Payment ID </label>
+                        <INPUT type="text" class="form-control my-2" name="PaymentId" value="6">
+                        <INPUT type="hidden" name="Plan" value="">
+                            <label>Ref No</label>
+                        <INPUT type="text" class="form-control my-2" name="RefNo" value="A00000001">
+                            <label>Amount</label>
+                            <INPUT type="text" class="form-control my-2" name="Amount" value="1.00">
+                        <INPUT type="hidden" name="Currency" value="MYR">
+                        <INPUT type="hidden" name="ProdDesc" value="Photo Print">
+                        <INPUT type="hidden" name="UserName" value="John Tan">
+                        <INPUT type="hidden" name="UserEmail" value="john@hotmail.com">
+                        <INPUT type="hidden" name="UserContact" value="0126500100">
+                        <INPUT type="hidden" name="Remark" value="">
+                        <INPUT type="hidden" name="Lang" value="UTF-8">
+                        <label>Signature</label>
+                        <INPUT type="hidden" name="SignatureType" value="SHA256">
+                        <INPUT type="text" class="form-control my-2" name="Signature"
+                            value="b81af9c4048b0f6c447129f0f5c0eec8d67cbe19eec26f2cdaba5df4f4dc5a28">
+                        <INPUT type="hidden" name="ResponseURL" value="https://blog.damienslab.com/thank_you">
+                        <INPUT type="hidden" name="BackendURL" value="https://blog.damienslab.com/api/payment/ipay88">
+                        <INPUT type="hidden" name="ActionType" value="">
+                        <INPUT type="hidden" name="TokenId" value="">
+                        <INPUT type="submit" class="btn btn-outline-light" value="Proceed with Payment" name="Submit">
+                    </FORM>
                 </div>
 
 
@@ -17,31 +48,7 @@
     </div>
 
 </section>
-<FORM method="post" name="ePayment"
-action="https://payment.ipay88.com.my/ePayment/entry.asp">
-<INPUT type="text" name="MerchantCode" value="M27483">
-<INPUT type="text" name="PaymentId" value="6">
-<INPUT type="hidden" name="Plan" value="">
-<INPUT type="text" name="RefNo" value="A00000001">
-<INPUT type="hidden" name="Amount" value="1.00">
-<INPUT type="hidden" name="Currency" value="MYR">
-<INPUT type="hidden" name="ProdDesc" value="Photo Print">
-<INPUT type="hidden" name="UserName" value="John Tan">
-<INPUT type="hidden" name="UserEmail" value="john@hotmail.com">
-<INPUT type="hidden" name="UserContact" value="0126500100">
-<INPUT type="hidden" name="Remark" value="">
-<INPUT type="hidden" name="Lang" value="UTF-8">
-<INPUT type="hidden" name="SignatureType" value="SHA256">
-<INPUT type="text" name="Signature"
-value="b81af9c4048b0f6c447129f0f5c0eec8d67cbe19eec26f2cdaba5df4f4dc5a28">
-<INPUT type="hidden" name="ResponseURL"
-value="https://blog.damienslab.com/thank_you">
-<INPUT type="hidden" name="BackendURL"
-value="https://blog.damienslab.com/api/payment/ipay88">
-<INPUT type="hidden" name="ActionType" value="">
-<INPUT type="hidden" name="TokenId" value="">
-<INPUT type="submit" value="Proceed with Payment" name="Submit">
-</FORM>
+
 
 <script>
     $("#outlet").html(`<h1 class="text-white">` + outlet.name + `</h1><br><span></span>`)
@@ -59,12 +66,23 @@ value="https://blog.damienslab.com/api/payment/ipay88">
             </div> 
             <div class="card-footer">
                 <button class="btn btn-outline-light" onclick="pay('`+ v.id + `')">Pay</button>
+                <button class="btn btn-outline-light" onclick="payTest('`+ v.id + `')">Test</button>
             </div>
         </div>
     `
         $("#items").append(div)
     })
+    function payTest(id) {
+        // here should only give the signature and populate the form
+        PhxApp.api("pay_service_test", { id: id, device: getUrlParameter("d") }, null, (x) => {
+           
+            $("input[name='Signature']").val(x[0])
+            $("input[name='RefNo']").val(x[1])
+        })
 
+
+
+    }
     function pay(id) {
         PhxApp.api("pay_service", { id: id, device: getUrlParameter("d") }, null, (x) => {
             if (x != null) {
