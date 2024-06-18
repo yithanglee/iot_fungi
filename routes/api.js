@@ -5,9 +5,7 @@ require('dotenv').config();
 const blogUrl = process.env.BLOG_URL;
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
-    console.log(req.url)
-    console.log(req.query)
-    console.log(blogUrl)
+
     try {
         const apiUrl = blogUrl + "/api/webhook" + req.url; // Replace with the actual API URL
         const response = await axios.get(apiUrl);

@@ -15,10 +15,10 @@
                         <label>Payment ID </label>
                         <INPUT type="text" class="form-control my-2" name="PaymentId" value="6">
                         <INPUT type="hidden" name="Plan" value="">
-                            <label>Ref No</label>
+                        <label>Ref No</label>
                         <INPUT type="text" class="form-control my-2" name="RefNo" value="A00000001">
-                            <label>Amount</label>
-                            <INPUT type="text" class="form-control my-2" name="Amount" value="1.00">
+                        <label>Amount</label>
+                        <INPUT type="text" class="form-control my-2" name="Amount" value="1.00">
                         <INPUT type="hidden" name="Currency" value="MYR">
                         <INPUT type="hidden" name="ProdDesc" value="Photo Print">
                         <INPUT type="hidden" name="UserName" value="John Tan">
@@ -75,7 +75,7 @@
     function payTest(id) {
         // here should only give the signature and populate the form
         PhxApp.api("pay_service_test", { id: id, device: getUrlParameter("d") }, null, (x) => {
-           
+
             $("input[name='Signature']").val(x[0])
             $("input[name='RefNo']").val(x[1])
         })

@@ -12,7 +12,6 @@ async function api(url) {
   try {
     const apiUrl = url; // Replace with the actual API URL
     const response = await axios.get(apiUrl);
-    console.log(response.data)
     // You can handle the response data here and send it back to the client
     return JSON.stringify(response.data)
   } catch (error) {
@@ -52,11 +51,11 @@ router.get('/*', async function (req, res, next) {
 
 
 
-  outlet = await api(blogUrl + "/api/webhook?scope=get_outlet&code=" + req.subdomain)
- items = await api(blogUrl + "/api/webhook?scope=get_items&code=" + req.subdomain)
+  outlet = await api(blogUrl + "/api/webhook?scope=get_outlet&code=" + req.query.location)
+  items = await api(blogUrl + "/api/webhook?scope=get_items&code=" + req.query.location)
 
 
-  res.render('index', { outlet: outlet, title: req.subdomain, content: decodedHtmlNav + decodedHtml, items: items });
+  res.render('index', { outlet: outlet, title: req.query.location, content: decodedHtmlNav + decodedHtml, items: items });
 });
 
 module.exports = router;
