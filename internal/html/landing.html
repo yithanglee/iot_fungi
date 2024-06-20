@@ -71,17 +71,7 @@
     `
         $("#items").append(div)
     })
-    function payTest(id) {
-        // here should only give the signature and populate the form
-        PhxApp.api("pay_service_test", { id: id, device: getUrlParameter("d") }, null, (x) => {
-
-            $("input[name='Signature']").val(x[0])
-            $("input[name='RefNo']").val(x[1])
-        })
-
-
-
-    }
+ 
     function pay(id) {
         PhxApp.api("pay_service", { id: id, device: getUrlParameter("d") }, null, (x) => {
             if (x != null) {
@@ -89,7 +79,8 @@
                 if (Object.keys(x).length == 2) {
                     $("input[name='Signature']").val(x[0])
                     $("input[name='RefNo']").val(x[1])
-                    $("form[name='epayment']").submit()
+                    $("input[name='MerchantCode']").val(x[2])
+                    $("form[name='ePayment']").submit()
 
                 } else {
                     window.open(x, '_blank');
