@@ -76,7 +76,7 @@
         PhxApp.api("pay_service", { id: id, device: getUrlParameter("d") }, null, (x) => {
             if (x != null) {
                 alert("You will be redirected to make payment.")
-                if (Object.keys(x).length == 2) {
+                if (Object.keys(x).length == 3) {
                     $("input[name='Signature']").val(x[0])
                     $("input[name='RefNo']").val(x[1])
                     $("input[name='MerchantCode']").val(x[2])
