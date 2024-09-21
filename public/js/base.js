@@ -4,7 +4,7 @@ var route_names = [
   { html: "not_found.html", title: "Not Found", route: "/not-found" },
 ]
 
-loadingPage = async () => {
+evalTitle = (title) => { return title }, loadingPage = async () => {
   $(".preloader").removeClass("d-none")
 
   setTimeout(() => {
@@ -128,30 +128,8 @@ loadingPage = async () => {
   }
 }
 
-window.curSwiper
 
 
-function activateSwiper(dom) {
-
-  curSwiper = new Swiper(".swiper", {
-    // Optional parameters
-    breakpoints: {
-      576: {
-        slidesPerView: 1
-      },
-    },
-    slidesPerView: 'auto',
-    spaceBetween: 24,
-    loop: true,
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true
-    },
-
-  });
-
-}
 
 async function navigateCallback() {
 
@@ -174,8 +152,28 @@ $(document).on("click", "a.navi", function (event) {
   }, 200)
 
 });
+window.curSwiper
+function activateSwiper(dom) {
 
+  curSwiper = new Swiper(".swiper", {
+    // Optional parameters
+    breakpoints: {
+      576: {
+        slidesPerView: 1
+      },
+    },
+    slidesPerView: 'auto',
+    spaceBetween: 24,
+    loop: true,
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    },
 
+  });
+
+}
 
 
 $(document).ready(() => {

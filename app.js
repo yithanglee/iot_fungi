@@ -53,7 +53,7 @@ var app = express();
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      "form-action": ['payment.ipay88.com.my'],
+      "form-action": ['payment.ipay88.com.my', 'localhost:4000', 'blog.damienslab.com'],
       defaultSrc: ["'self'"],
       "script-src-attr": ["'self'", "'unsafe-inline'"],
       scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'", 'openstreetmap.org'],

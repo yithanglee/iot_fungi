@@ -8,6 +8,9 @@
                 </div>
                 <div class="d-none">
                     <h2 class="text-white">Click on test to populate the signature</h2>
+                    <FORM method="post" class="form" name="razerPayment" target="_blank">
+                    </FORM>
+
                     <FORM method="post" class="form" name="ePayment"
                         action="https://payment.ipay88.com.my/ePayment/entry.asp">
                         <label>Merchant Code</label>
@@ -83,7 +86,15 @@
                     $("form[name='ePayment']").submit()
 
                 } else {
-                    window.open(x, '_blank');
+
+                    if (x.includes("razer")) {
+                        $("form[name='razerPayment']").attr("action", x)
+                        $("form[name='razerPayment']").submit()
+                    } else {
+                        window.open(x, '_blank');
+                    }
+
+                  
                 }
 
 
