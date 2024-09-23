@@ -20,50 +20,52 @@ const destDir = path.join(__dirname, 'public/html/v2');
 // Function to create the symlink
 function createSymlink() {
   fs.symlink(srcDir, destDir, 'dir', (err) => {
-      if (err) {
-          console.error('Error creating symlink:', err);
-      } else {
-          console.log('Symlink created successfully');
-      }
+    if (err) {
+      console.error('Error creating symlink:', err);
+    } else {
+      console.log('Symlink created successfully');
+    }
   });
 }
 
 // Check if the symlink already exists
 fs.access(destDir, fs.constants.F_OK, (err) => {
   if (!err) {
-      // Symlink exists, delete it first
-      fs.unlink(destDir, (unlinkErr) => {
-          if (unlinkErr) {
-              console.error('Error deleting symlink:', unlinkErr);
-          } else {
-              console.log('Symlink deleted successfully');
-              createSymlink();
-          }
-      });
+    // Symlink exists, delete it first
+    fs.unlink(destDir, (unlinkErr) => {
+      if (unlinkErr) {
+        console.error('Error deleting symlink:', unlinkErr);
+      } else {
+        console.log('Symlink deleted successfully');
+        createSymlink();
+      }
+    });
   } else {
-      // Symlink does not exist, create it directly
-      createSymlink();
+    // Symlink does not exist, create it directly
+    createSymlink();
   }
 });
 var app = express();
 
-
-// Add helmet to the middleware chain.
-// Set CSP headers to allow our Bootstrap and Jquery to be served
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      "form-action": [ 'blog.damienslab.com/*', 'payment.ipay88.com.my', 'localhost:4000'],
+      // Allow form submissions to these specific domains
+      "form-action": ["https://blog.damienslab.com", "https://payment.ipay88.com.my", "http://localhost:4000"],
+      
+      // Allow default sources from 'self' (the same origin)
       defaultSrc: ["'self'"],
-      "script-src-attr": ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'", 'openstreetmap.org'],
-      // styleSrc: ["'self'", 'openstreetmap.org'],
-      imgSrc: ["'self'", "localhost:5126", "blog.damienslab.com", 'tile.openstreetmap.org', '*.tile.openstreetmap.org'],
-      // connectSrc: ["'self'", 'openstreetmap.org'],
-      // fontSrc: ["'self'", 'openstreetmap.org'],
+      
+      // Allow inline scripts and scripts from specific domains
+      "script-src-attr": ["'self'", "'unsafe-inline'"], // Allows inline script attributes (e.g., event handlers)
+      scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'", "https://openstreetmap.org"],
+
+      // Allow images to be loaded from these sources
+      imgSrc: ["'self'", "http://localhost:5126", "https://blog.damienslab.com", "https://tile.openstreetmap.org", "https://*.tile.openstreetmap.org"],
     },
-  }),
+  })
 );
+
 
 // Set up rate limiter: maximum of twenty requests per minute
 const RateLimit = require("express-rate-limit");
@@ -91,11 +93,11 @@ app.use((req, res, next) => {
 
   // Optional: Ignore 'www' as a subdomain
   if (subdomain === 'www') {
-      req.subdomain = null;  // or you could reassign it to something else
+    req.subdomain = null;  // or you could reassign it to something else
   } else {
-      req.subdomain = subdomain;
+    req.subdomain = subdomain;
   }
-  
+
   next();
 });
 app.use('/api/webhook', apiRouter);
