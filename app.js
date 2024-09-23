@@ -51,7 +51,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       // Allow form submissions to these specific domains
-      "form-action": ["https://blog.damienslab.com", "https://payment.ipay88.com.my", "http://localhost:4000"],
+      "form-action": ["https://blog.damienslab.com/test_razer", "https://payment.ipay88.com.my", "http://localhost:4000"],
       
       // Allow default sources from 'self' (the same origin)
       defaultSrc: ["'self'"],
