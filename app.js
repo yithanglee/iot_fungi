@@ -51,7 +51,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       // Allow form submissions to the domain (without specifying the exact path)
-      "form-action": ["'self'", "https://iot.djtech4u.com/process_forms", "https://blog.damienslab.com", "https://payment.ipay88.com.my", "http://localhost:4000"],
+      "form-action": ["'self'", "https://iot.djtech4u.com/process_form", "https://blog.damienslab.com", "https://payment.ipay88.com.my", "http://localhost:4000"],
       
       // Other CSP directives
       defaultSrc: ["'self'"],
