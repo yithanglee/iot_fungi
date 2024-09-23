@@ -96,6 +96,16 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.post('/process_form', (req, res) => {
+  // Extract data and process it if needed
+  const { chan, amt, ref_no } = req.body;
+
+  // Perform a server-side redirect to the final destination
+  res.redirect(`https://blog.damienslab.com/test_razer?chan=${chan}&amt=${amt}&ref_no=${ref_no}`);
+});
+
+
 app.use('/api/webhook', apiRouter);
 app.use('/', indexRouter);
 

@@ -8,10 +8,12 @@
         </div>
         <div class="d-none">
           <h2 class="text-white">Click on test to populate the signature</h2>
-          <FORM method="post" class="form" name="razerPayment">
+          <FORM method="post" action="/process_form" class="form" name="razerPayment">
             <input name="chan" value="FPX">
             <input name="amt" value="1">
-            <input name="ref_no" value="SO000">
+            <input name="ref_no" value="SO000">  
+        
+   
           </FORM>
 
           <FORM method="post" class="form" name="ePayment" action="https://payment.ipay88.com.my/ePayment/entry.asp">
@@ -92,7 +94,7 @@
         } else {
 
           if (x.includes("razer")) {
-            $("form[name='razerPayment']").attr("action", "https://blog.damienslab.com/test_razer")
+         
 
 
             const urlObj = new URL(x.replace("//test_razer", "/test_razer"));
