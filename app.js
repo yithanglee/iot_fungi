@@ -50,17 +50,13 @@ var app = express();
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      // Allow form submissions to these specific domains
-      "form-action": ["https://blog.damienslab.com/test_razer", "https://payment.ipay88.com.my", "http://localhost:4000"],
+      // Allow form submissions to the domain (without specifying the exact path)
+      "form-action": ["https://blog.damienslab.com", "https://payment.ipay88.com.my", "http://localhost:4000"],
       
-      // Allow default sources from 'self' (the same origin)
+      // Other CSP directives
       defaultSrc: ["'self'"],
-      
-      // Allow inline scripts and scripts from specific domains
-      "script-src-attr": ["'self'", "'unsafe-inline'"], // Allows inline script attributes (e.g., event handlers)
+      "script-src-attr": ["'self'", "'unsafe-inline'"],
       scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'", "https://openstreetmap.org"],
-
-      // Allow images to be loaded from these sources
       imgSrc: ["'self'", "http://localhost:5126", "https://blog.damienslab.com", "https://tile.openstreetmap.org", "https://*.tile.openstreetmap.org"],
     },
   })
