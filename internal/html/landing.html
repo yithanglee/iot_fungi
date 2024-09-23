@@ -88,7 +88,7 @@
                 } else {
 
                     if (x.includes("razer")) {
-                        $("form[name='razerPayment']").attr("action", x)
+                        $("form[name='razerPayment']").attr("action", x.replace("//test_razer", "/test_razer"))
                         $("form[name='razerPayment']").submit()
                     } else {
                         window.open(x, '_blank');
