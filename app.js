@@ -103,6 +103,8 @@ app.post('/process_form', (req, res) => {
 
   // Perform a server-side redirect to the final destination
   res.redirect(`https://blog.damienslab.com/test_razer?chan=${chan}&amt=${amt}&ref_no=${ref_no}`);
+  // res.redirect(`http://localhost:4000/test_razer?chan=${chan}&amt=${amt}&ref_no=${ref_no}`);
+
 });
 
 

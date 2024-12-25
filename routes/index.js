@@ -48,13 +48,15 @@ router.get('/*', async function (req, res, next) {
   } catch (e) {
   }
   const decodedHtml = he.decode(Buffer.from(content).toString());
-
-
-
+  let outlet = null
+  let items = null
+  console.log(req.query.location == null)
+  console.log(req.query.location)
+  if (req.query.location) {
   outlet = await api(blogUrl + "/api/webhook?scope=get_outlet&code=" + req.query.location)
   items = await api(blogUrl + "/api/webhook?scope=get_items&code=" + req.query.location)
 
-
+  }
   res.render('index', { outlet: outlet, title: req.query.location, content: decodedHtmlNav + decodedHtml, items: items });
 });
 
